@@ -213,6 +213,8 @@ class Case(Object):     # pylint: disable=too-few-public-methods
                     match=Class(PositivePattern),
                     dont_match=Class(NegativePattern),
                     waived=Boolean(),
+                    role=String(),
+                    extra_params=String(),
                 )
             ),
             data
@@ -257,7 +259,8 @@ class Suite(Object):    # pylint: disable=too-few-public-methods
                         description=String(),
                         patterns=List(StrictStruct(pattern=Regex(),
                                                    case_name=String())),
-                        cases=List(Class(Case))
+                        cases=List(Class(Case)),
+                        maintainer=String(),
                     ),
                     optional=dict(
                         host_type_regex=Regex(),
@@ -266,13 +269,15 @@ class Suite(Object):    # pylint: disable=too-few-public-methods
                         hostRequires=String(),
                         partitions=String(),
                         kickstart=String(),
+                        fetch_suffix=String(),
                     )
                 ),
                 convert,
                 Struct(
                     required=dict(
                         description=String(),
-                        cases=List(Class(Case))
+                        cases=List(Class(Case)),
+                        maintainer=String(),
                     ),
                     optional=dict(
                         host_type_regex=Regex(),
@@ -283,6 +288,7 @@ class Suite(Object):    # pylint: disable=too-few-public-methods
                         kickstart=String(),
                         match=Class(PositivePattern),
                         dont_match=Class(NegativePattern),
+                        fetch_suffix=String(),
                     )
                 ),
             ),

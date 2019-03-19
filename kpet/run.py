@@ -42,6 +42,8 @@ class Suite:    # pylint: disable=too-few-public-methods
         self.partitions = suite.partitions
         self.kickstart = suite.kickstart
         self.cases = cases
+        self.maintainer = suite.maintainer
+        self.fetch_suffix = suite.fetch_suffix
 
 
 class Host:     # pylint: disable=too-few-public-methods
