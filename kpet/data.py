@@ -212,6 +212,7 @@ class Case(Object):     # pylint: disable=too-few-public-methods
                     tasks=String(),
                     match=Class(PositivePattern),
                     dont_match=Class(NegativePattern),
+                    waived=Boolean(),
                 )
             ),
             data
