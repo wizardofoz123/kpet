@@ -215,6 +215,7 @@ class Case(Object):     # pylint: disable=too-few-public-methods
                     waived=Boolean(),
                     role=String(),
                     extra_params=String(),
+                    multihost=Boolean(),
                 )
             ),
             data
