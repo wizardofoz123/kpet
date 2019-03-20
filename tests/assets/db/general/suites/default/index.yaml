@@ -1,7 +1,5 @@
 description: 'layout of ltplite for KPET'
-patterns:
-    -   pattern: .*
-        case_name: default/ltplite
+maintainer: maint1
+fetch_suffix: distribution/ltp/lite
 cases:
-    -   name: default/ltplite
-        tasks: suites/default/ltplite.xml
+    -   name: /kernel/distribution/ltp/lite

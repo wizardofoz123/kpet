@@ -1,4 +1,6 @@
 description: 'layout of xfs tests for KPET'
+fetch_suffix: /filesystems/xfs/xfstests
+maintainer: maint1
 patterns:
     -   pattern: ^fs/ext4/.*
         case_name: fs/ext4

@@ -1,15 +1,39 @@
-{% macro host_include_templates(host, template_field) -%}
-	{% if host[template_field] %}
-		{% include host[template_field] %}
-	{% endif %}
+{% set TESTS_BEAKER_ZIP_URL = getenv('TESTS_BEAKER_ZIP_URL') or "https://github.com/CKI-project/tests-beaker/archive/master.zip" %}
+{% macro host_include_templates(host, template_field, role="STANDALONE") -%}
+  {% if host[template_field] %}
+    {% include host[template_field] %}
+  {% endif %}
   {% for suite in host.suites %}
     {% if suite[template_field] %}
       {% include suite[template_field] %}
     {% endif %}
     {% for case in suite.cases %}
-      {% if case[template_field] %}
-        {% include case[template_field] %}
-      {% endif %}
+        {% if template_field == 'tasks' %}
+            {% if case['role'] is not none %}
+                {% set default_role = case['role'] %}
+            {% else %}
+                {% set default_role = "STANDALONE" %}
+            {% endif %}
+
+            <task name="{{ case['name'] }}" role="{{ default_role }}">
+                {% if suite['fetch_suffix'] is not none %}
+                    <fetch url="{{ TESTS_BEAKER_ZIP_URL }}#{{ suite['fetch_suffix'] }}"/>
+                {% endif %}
+                  <params>
+                    {% if case['waived'] is not none %}
+                      <param name="_WAIVED" value="{{ case['waived'] }}"/>
+                    {% endif %}
+                    <param name="_MAINTAINERS" value="{{ suite['maintainer']|e }}"/>
+                    {% if case['extra_params'] is not none %}
+                      {{ case['extra_params'] }}
+                    {% endif %}
+                  </params>
+            </task>
+        {% else %}
+            {% if case[template_field] %}
+                {% include case[template_field] %}
+            {% endif %}
+        {% endif %}
     {% endfor %}
   {% endfor %}
 {% endmacro %}
@@ -55,10 +79,10 @@
           </params>
         </task>
         <task name="/test/misc/machineinfo">
-          <fetch url="https://github.com/CKI-project/tests-beaker/archive/staging.zip#test/misc/machineinfo"/>
+          <fetch url="https://github.com/CKI-project/tests-beaker/archive/master.zip#test/misc/machineinfo"/>
         </task>
         <task name="/distribution/kpkginstall" role="STANDALONE">
-          <fetch url="https://github.com/CKI-project/tests-beaker/archive/staging.zip#distribution/kpkginstall"/>
+          <fetch url="https://github.com/CKI-project/tests-beaker/archive/master.zip#distribution/kpkginstall"/>
           <params>
             <param name="KPKG_URL" value="{{ KURL }}"/>
           </params>

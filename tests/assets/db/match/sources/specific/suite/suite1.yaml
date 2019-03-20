@@ -1,4 +1,5 @@
 description: suite1
+maintainer: maint1
 match:
     specific_sources: true
 cases:

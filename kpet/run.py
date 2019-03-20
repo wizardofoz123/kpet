@@ -19,7 +19,8 @@ from lxml import etree
 from kpet import data
 
 
-class Suite:    # pylint: disable=too-few-public-methods
+class Suite:
+    # pylint: disable=too-few-public-methods,too-many-instance-attributes
     """A test suite run"""
 
     def __init__(self, suite, cases):

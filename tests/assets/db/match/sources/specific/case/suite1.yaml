@@ -1,4 +1,5 @@
 description: suite1
+maintainer: maint1
 cases:
     - name: case1
       match:

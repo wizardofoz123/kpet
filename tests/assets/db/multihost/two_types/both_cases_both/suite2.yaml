@@ -1,4 +1,5 @@
 description: suite2
+maintainer: maint1
 cases:
     - name: case2
       host_type_regex: ""
